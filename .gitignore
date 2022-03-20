@@ -5,6 +5,7 @@ bin/*.d.ts
 bin/*.js
 test/*.d.ts
 test/*.js
+out/*
 # CDK synth output
 cdk.out/*
 

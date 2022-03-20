@@ -1,17 +1,17 @@
-import * as cdk from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
-import {MyCoolAwsStack} from '../lib/my-cool-aws-stack';
+import * as cdk from "aws-cdk-lib";
+import { Template } from "aws-cdk-lib/assertions";
+import { MyCoolAwsStack } from "../lib/stacks/my-cool-aws-stack";
 
 // example test. To run these tests, uncomment this file along with the
 // example resource in lib/sommerstudent-konsulentskolen-aws-template-stack.ts
-test('SQS Queue Created', () => {
+test("SQS Queue Created", () => {
   const app = new cdk.App();
   // WHEN
-  const stack = new MyCoolAwsStack(app, 'MyTestStack');
+  const stack = new MyCoolAwsStack(app, "MyTestStack");
   // THEN
   const template = Template.fromStack(stack);
 
-  template.hasResourceProperties('AWS::SQS::Queue', {
-    VisibilityTimeout: 300
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 300,
   });
 });
