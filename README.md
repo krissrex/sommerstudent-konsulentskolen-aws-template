@@ -63,7 +63,8 @@ Kristian har tilgang til den.
 
 # Ressurser
 
-- Slides https://docs.google.com/presentation/d/1G2JG5k0OweObcymyH4EvTzNG9Kp8RJChe5NPP_mAi7M/edit#slide=id.p
+- Slides, AWS https://docs.google.com/presentation/d/116vsojmw7ca3_72yPTnYaVveGYqhRdHW7OGAzAGtRm0/edit?usp=sharing
+- Slides, IaC https://docs.google.com/presentation/d/1G2JG5k0OweObcymyH4EvTzNG9Kp8RJChe5NPP_mAi7M/edit#slide=id.p
 - CDK tutorial https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#hello_world_tutorial
 - Your first cdk stack https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
 - Referanse-repo https://github.com/aleksil/ctfd-cdk-example/tree/master/src
