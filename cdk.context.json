@@ -3,5 +3,55 @@
     "eu-west-1a",
     "eu-west-1b",
     "eu-west-1c"
-  ]
+  ],
+  "ssm:account=701519849458:parameterName=/cdk/infra/vpcId:region=eu-west-1": "vpc-0ffead55a82234230",
+  "ssm:account=701519849458:parameterName=/cdk/infra/clusterName:region=eu-west-1": "SharedInfraStack-ClusterEB0386A7-asF6gVjoO2iV",
+  "ssm:account=701519849458:parameterName=/cdk/infra/albSecurityGroup:region=eu-west-1": "sg-0c6fd2e2d8f14832e",
+  "ssm:account=701519849458:parameterName=/cdk/infra/albArn:region=eu-west-1": "arn:aws:elasticloadbalancing:eu-west-1:701519849458:loadbalancer/app/Share-LoadB-1LDQS1T6W6ZW0/879df5b5ed6bef0a",
+  "ssm:account=701519849458:parameterName=/cdk/infra/albDnsName:region=eu-west-1": "Share-LoadB-1LDQS1T6W6ZW0-1701426986.eu-west-1.elb.amazonaws.com",
+  "ssm:account=701519849458:parameterName=/cdk/infra/albFullName:region=eu-west-1": "app/Share-LoadB-1LDQS1T6W6ZW0/879df5b5ed6bef0a",
+  "ssm:account=701519849458:parameterName=/cdk/infra/albHttpListenerArn:region=eu-west-1": "arn:aws:elasticloadbalancing:eu-west-1:701519849458:listener/app/Share-LoadB-1LDQS1T6W6ZW0/879df5b5ed6bef0a/5b2541f8f2606ba3",
+  "vpc-provider:account=701519849458:filter.vpc-id=vpc-0ffead55a82234230:region=eu-west-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0ffead55a82234230",
+    "vpcCidrBlock": "10.0.0.0/16",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-0b86366703c5f5501",
+            "cidr": "10.0.0.0/18",
+            "availabilityZone": "eu-west-1a",
+            "routeTableId": "rtb-0367f7e7bad9a94d7"
+          },
+          {
+            "subnetId": "subnet-0195655dc4d08d0ec",
+            "cidr": "10.0.64.0/18",
+            "availabilityZone": "eu-west-1b",
+            "routeTableId": "rtb-084dfdf55341dfabd"
+          }
+        ]
+      },
+      {
+        "name": "Isolated",
+        "type": "Isolated",
+        "subnets": [
+          {
+            "subnetId": "subnet-0fcb9f4c6667b5270",
+            "cidr": "10.0.128.0/18",
+            "availabilityZone": "eu-west-1a",
+            "routeTableId": "rtb-0901de8762ef94594"
+          },
+          {
+            "subnetId": "subnet-078b37a291cbddc57",
+            "cidr": "10.0.192.0/18",
+            "availabilityZone": "eu-west-1b",
+            "routeTableId": "rtb-0942dce1d0614b982"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -15,18 +15,20 @@ if (dittNavn == "capra") {
     description:
       "Shared VPC and ECS Cluster. Only a Capra employee has to set up this.",
   });
+} else {
+  const infra = new InfraReferenceStack(app, `${dittNavn}InfraReference`, {
+    env: { account: accountId, region: "eu-west-1" },
+  });
+
+  new MyCoolAwsStack(app, `${dittNavn}Stack`, {
+    /** If you don't specify 'env', this stack will be environment-agnostic.
+     * Account/Region-dependent features and context lookups will not work,
+     * but a single synthesized template can be deployed anywhere. */
+
+    env: { account: accountId, region: "eu-west-1" },
+    vpc: infra.vpc,
+    cluster: infra.cluster,
+    loadBalancer: infra.loadBalancer,
+    httpListener: infra.httpListener
+  });
 }
-/*
-const infra = new InfraReferenceStack(app, "InfraReference", {
-  env: { account: accountId, region: "eu-west-1" },
-});
-
-new MyCoolAwsStack(app, `${dittNavn}Stack`, {
-  /!* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. *!/
-
-  env: { account: accountId, region: "eu-west-1" },
-  vpc: infra.vpc,
-  cluster: infra.cluster,
-});*/

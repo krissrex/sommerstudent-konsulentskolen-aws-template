@@ -1,23 +1,57 @@
-# Welcome to your CDK TypeScript project
+# AWS CDK IaC repo for Capra Konsulentskolen del 2
 
-This is a blank project for TypeScript development with CDK.
+Dette repoet kan `clone`s for å lage ressurser i Amazon Web Services (AWS) med Cloud Development Kit (CDK).  
+Prinsippet er Infrastructure as Code (IaC), som også finnes som f.eks. CloudFormation yaml, Terraform og Pulumi osv...
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Load balancer
 
-## Useful commands
+Det finnes en felles, ferdig oppdatt ALB på [Share-LoadB-1LDQS1T6W6ZW0-1701426986.eu-west-1.elb.amazonaws.com](Share-LoadB-1LDQS1T6W6ZW0-1701426986.eu-west-1.elb.amazonaws.com)
+
+## Filer
+
+* [cdk.json](./cdk.json) sier hvordan CDK Toolkit skal kjøre din "app" (infrastruktur-kode).
+* [cdk.context.json](./cdk.context.json) er en cache av AWS-kontoen vi bruker.
+* [package.json](./package.json) lister dependencies og kommandoer for `npm`.
+* [tsconfig.jso](./tsconfig.json), [.prettierrc.json](./.prettierrc.json), [.eslintrc.js](./.eslintrc.js) er configs for bygg og lint.
+* [bin/cdk-app.ts](./bin/cdk-app.ts) er "main entrypoint" for CDK. Denne sier hvilke Stacks som skal deployes og i hvilken AWS konto.
+  * Her "constructer" du inn dine stacks (`new MyStack()`), hvis du har fler enn 1. For eksempel to uavhengige applikasjoner.
+  * Det er også her du kobler dependencies mellom stacks sammen, via props:
+    ```typescript
+    const myQueueStack = new MyQueueStack(...)
+    new MyAppStack(..., { queue: myQueueStack.sqsQueue })
+    ```
+* [lib/stacks/my-cool-aws-stack.ts](./lib/stacks/my-cool-aws-stack.ts) en tom stack. Her kan du legge inn din egen kode for å opprette en ECS Fargate service, Lambda, SQS, S3 bucket osv.
+  * En stack er en samling med constructs som skal deployes.
+  * En construct er en gjennbrukbar komponent, som består av flere construcs eller aws-ressurser.
+* [lib/config.ts](./lib/config.ts) Instillinger for IaC. **Her skal du legge inn navnet ditt** så din stack ikke kolliderer med andre studenter.
+
+## Oppsett av aws-vault
+
+Legg til følgene i filen `~/.aws/config`
+```
+[profile ks2]
+mfa_serial=arn:aws:iam::701519849458:mfa/DITT_BRUKERNAVN
+region=eu-west-1
+```
+
+Og kjør `aws-vault add ks2`
+Bruk credentials du får fra Kristian.
+
+## Nyttige kommandoer
 
 * `npm run build`   compile typescript to js
 * `npm run watch`   watch for changes and compile
 * `npm run test`    perform the jest unit tests
-* `npm run lint`    Run lint
+* `npm run lint`    run lint to find mistakes
 
 
-* `npm run cdk deploy`  deploy this stack to your default AWS account/region
-* `npm run cdk diff`    compare deployed stack with current state
-* `npm run cdk synth`   emits the synthesized CloudFormation template
-* `npm run cdk ls`      View stacks
-* `npm run cdk diff <stack>`
-* `npm run cdk deploy <stack>`
+* `npm run cdk deploy`                             deploy this stack to your default AWS account/region
+* `npm run cdk synth`                              emits the synthesized CloudFormation template
+* `npm run cdk ls`                                 View stacks
+* `aws-vault exec ks2 -- npm run cdk diff`         compare deployed stack with current state
+* `aws-vault exec ks2 -- npm run cdk diff <stack>` 
+* `aws-vault exec ks2 -- npm run cdk deploy -- --all`
+* `aws-vault exec ks2 -- npm run cdk destroy <stack>`
 
 
 # Ressurser
@@ -28,7 +62,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 - Referanse-repo https://github.com/aleksil/ctfd-cdk-example/tree/master/src
 - how-to https://docs.aws.amazon.com/cdk/v2/guide/how_tos.html
 - API reference https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html
-- 
+
 
 # Hvordan dette ble satt opp
 
@@ -43,4 +77,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 9. La inn aws konto i aws-vault, og pekte den til eu-west-1.
 10. `aws-vault exec ks2 -- npx cdk bootstrap aws://701519849458/eu-west-1`
     1. Denne lager en CloudFormation stack: `CDKToolkit`.
-11. 
+11. La inn felles infra som vpc, alb og en stack som henter de via SSM parametre
+12. `aws-vault exec ks2 -- npm run cdk deploy` med `SharedInfraStack` i app
+13. Byttet `dittNavn` fra `capra` til `kristian` og prøvde `aws-vault exec ks2 -- npm run cdk synth`
+14. 

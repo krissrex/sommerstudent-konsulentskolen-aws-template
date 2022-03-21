@@ -5,10 +5,13 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import {
-  ssmAlbArn, ssmAlbDnsName, ssmAlbFullName, ssmAlbHttpListenerArn,
+  ssmAlbArn,
+  ssmAlbDnsName,
+  ssmAlbFullName,
+  ssmAlbHttpListenerArn,
   ssmAlbSecurityGroup,
   ssmClusterName,
-  ssmVpcId
+  ssmVpcId,
 } from "../config";
 
 /**
@@ -45,29 +48,46 @@ export class InfraReferenceStack extends cdk.Stack {
       this,
       ssmAlbSecurityGroup
     );
-    const loadBalancerSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(this, "AlbSecurityGroup", securityGroupId, {
-      allowAllOutbound: true,
-    })
+    const loadBalancerSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(
+      this,
+      "AlbSecurityGroup",
+      securityGroupId,
+      {
+        allowAllOutbound: true,
+      }
+    );
+    const loadBalancerArn = ssm.StringParameter.valueFromLookup(
+      this,
+      ssmAlbArn
+    );
     this.loadBalancer =
       elbv2.ApplicationLoadBalancer.fromApplicationLoadBalancerAttributes(
         this,
         "ApplicationLoadBalancer",
         {
-          loadBalancerArn: ssm.StringParameter.valueFromLookup(this, ssmAlbArn),
+          loadBalancerArn: cdk.Lazy.string({ produce: () => loadBalancerArn }),
           vpc: this.vpc,
           securityGroupId: securityGroupId,
-          loadBalancerDnsName: ssm.StringParameter.valueFromLookup(this, ssmAlbDnsName),
-          loadBalancerCanonicalHostedZoneId: ssm.StringParameter.valueFromLookup(this, ssmAlbFullName),
+          loadBalancerDnsName: ssm.StringParameter.valueFromLookup(
+            this,
+            ssmAlbDnsName
+          ),
+          loadBalancerCanonicalHostedZoneId:
+            ssm.StringParameter.valueFromLookup(this, ssmAlbFullName),
         }
       );
 
-    this.httpListener = elbv2.ApplicationListener.fromApplicationListenerAttributes(
-      this,
-      "HttpListener",
-      {
-        listenerArn: ssm.StringParameter.valueFromLookup(this, ssmAlbHttpListenerArn),
-        securityGroup: loadBalancerSecurityGroup,
-      },
-    )
+    this.httpListener =
+      elbv2.ApplicationListener.fromApplicationListenerAttributes(
+        this,
+        "HttpListener",
+        {
+          listenerArn: ssm.StringParameter.valueFromLookup(
+            this,
+            ssmAlbHttpListenerArn
+          ),
+          securityGroup: loadBalancerSecurityGroup,
+        }
+      );
   }
 }

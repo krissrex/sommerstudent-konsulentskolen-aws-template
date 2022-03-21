@@ -7,7 +7,8 @@ import { tagResources } from "./tags";
 export const accountId = "701519849458";
 
 /** Alle stacks skal til samme AWS konto. Navnet ditt gjør det lettere å finne din stack */
-export const dittNavn = "capra"; // throw Error("Endre denne og slett Error.")
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
+export const dittNavn: string = "kristian"; // throw Error("Endre dittNavn og slett Error.")
 
 export function applyTags(scope: constructs.Construct): void {
   tagResources(scope, (stack) => ({
