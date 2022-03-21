@@ -64,6 +64,16 @@ Bruk credentials du får fra Kristian.
 - API reference https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html
 
 
+## Forslag til infrastruktur du kan lage
+
+### Lambda SQS processor
+![Lambda SQS processor](./lambda-sqs-sns.drawio.svg)
+
+### Webapp backend
+![Webapp backend](./webapp-backend.drawio.svg)
+
+---
+
 # Hvordan dette ble satt opp
 
 1. Lagde prosjektet fra `npx aws-cdk init app --language=typescript`
