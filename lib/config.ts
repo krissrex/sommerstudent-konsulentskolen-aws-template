@@ -12,10 +12,15 @@ export const dittNavn = "capra"; // throw Error("Endre denne og slett Error.")
 export function applyTags(scope: constructs.Construct): void {
   tagResources(scope, (stack) => ({
     StackName: stack.stackName,
-    Project: `${dittNavn}-private`,
+    Project: `${dittNavn}-konsulentskolen`,
     SourceRepo: "github/krissrex/sommerstudent-konsulentskolen-aws-template",
   }));
 }
 
-export const ssmVpcId = "cdk/infra/vpcId"
-export const ssmClusterName = "cdk/infra/clusterName"
+export const ssmVpcId = "/cdk/infra/vpcId"
+export const ssmClusterName = "/cdk/infra/clusterName"
+export const ssmAlbArn = "/cdk/infra/albArn"
+export const ssmAlbFullName = "/cdk/infra/albFullName"
+export const ssmAlbDnsName = "/cdk/infra/albDnsName"
+export const ssmAlbSecurityGroup = "/cdk/infra/albSecurityGroup"
+export const ssmAlbHttpListenerArn = "/cdk/infra/albHttpListenerArn"

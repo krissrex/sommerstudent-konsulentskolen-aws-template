@@ -24,7 +24,10 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 - Slides https://docs.google.com/presentation/d/1G2JG5k0OweObcymyH4EvTzNG9Kp8RJChe5NPP_mAi7M/edit#slide=id.p
 - CDK tutorial https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#hello_world_tutorial
+- Your first cdk stack https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
 - Referanse-repo https://github.com/aleksil/ctfd-cdk-example/tree/master/src
+- how-to https://docs.aws.amazon.com/cdk/v2/guide/how_tos.html
+- API reference https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html
 - 
 
 # Hvordan dette ble satt opp
@@ -37,4 +40,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 6. Installer og sett opp Prettier, ESlint (`npx eslint --init`), la inn prettier config til eslint
 7. La inn `config.ts` og `tags.ts` fra aleksi, og tok de i bruk.
 8. Pekte ts output til `out/`
-9. 
+9. La inn aws konto i aws-vault, og pekte den til eu-west-1.
+10. `aws-vault exec ks2 -- npx cdk bootstrap aws://701519849458/eu-west-1`
+    1. Denne lager en CloudFormation stack: `CDKToolkit`.
+11. 

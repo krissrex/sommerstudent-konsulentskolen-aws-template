@@ -13,20 +13,20 @@ if (dittNavn == "capra") {
   new SharedInfraStack(app, "SharedInfraStack", {
     env: { account: accountId, region: "eu-west-1" },
     description:
-      "Shared VPC and ECS Cluster. Only a Capra employ has to set up this.",
+      "Shared VPC and ECS Cluster. Only a Capra employee has to set up this.",
   });
 }
-
+/*
 const infra = new InfraReferenceStack(app, "InfraReference", {
   env: { account: accountId, region: "eu-west-1" },
 });
 
 new MyCoolAwsStack(app, `${dittNavn}Stack`, {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
+  /!* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
+   * but a single synthesized template can be deployed anywhere. *!/
 
   env: { account: accountId, region: "eu-west-1" },
   vpc: infra.vpc,
   cluster: infra.cluster,
-});
+});*/

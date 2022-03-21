@@ -22,14 +22,15 @@ export class MyCoolAwsStack extends Stack {
     });
 
     // Get the VPC (Virtual Private Network) from props
+    // Create an Application Load Balancer (ALB) to route public traffic to the ECS
 
-    // Create an ECS service
+    // Create an ECS Fargate service
     //  https://github.com/aleksil/ctfd-cdk-example/blob/master/src/stacks/ctfd-stack.ts#L87
-
+    // or https://github.com/aws-samples/aws-cdk-examples/blob/master/typescript/ecs/cross-stack-load-balancer/split-at-listener.ts#L44
     // Create a task definition for ECS
+
     // Set SQS, SNS, S3 urls etc. as environment names on the docker container
 
-    // Create an Application Load Balancer (ALB) to route public traffic to the ECS
 
     // Create a route53 A record to the ALB
   }
