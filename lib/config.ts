@@ -8,7 +8,10 @@ export const accountId = "701519849458";
 
 /** Alle stacks skal til samme AWS konto. Navnet ditt gjør det lettere å finne din stack */
 // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-export const dittNavn: string = "kristian"; // throw Error("Endre dittNavn og slett Error.")
+export const dittNavn: string = "kristian";
+if (dittNavn == "capra" || dittNavn == "kristian" ) {
+  throw Error("Endre dittNavn til noe unikt!")
+}
 
 export function applyTags(scope: constructs.Construct): void {
   tagResources(scope, (stack) => ({
