@@ -53,13 +53,15 @@ Kristian har tilgang til den.
 * `npm run lint`    run lint to find mistakes
 
 
-* `npm run cdk deploy`                             deploy this stack to your default AWS account/region
-* `npm run cdk synth`                              emits the synthesized CloudFormation template
-* `npm run cdk ls`                                 View stacks
-* `aws-vault exec ks2 -- npm run cdk diff`         compare deployed stack with current state
+* `npm run cdk deploy`                                deploy this stack to your default AWS account/region
+* `npm run cdk synth`                                 emits the synthesized CloudFormation template
+* `npm run cdk ls`                                    view stacks
+* `aws-vault exec ks2 -- npm run cdk diff`            compare deployed stack with current state
 * `aws-vault exec ks2 -- npm run cdk diff <stack>`
-* `aws-vault exec ks2 -- npm run cdk deploy -- --all`
-* `aws-vault exec ks2 -- npm run cdk destroy <stack>`
+* `aws-vault exec ks2 -- npm run cdk deploy -- --all` deploy everything
+* `aws-vault exec ks2 -- npm run cdk destroy <stack>` remove a stack
+
+* `aws-vault login ks2` open the AWS console
 
 # Ressurser
 
