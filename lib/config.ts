@@ -8,7 +8,7 @@ export const accountId = "701519849458";
 
 /** Alle stacks skal til samme AWS konto. Navnet ditt gjør det lettere å finne din stack */
 // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-export const dittNavn: string = "kristian";
+export const dittNavn: string = "konsulentX";
 if (dittNavn == "capra" || dittNavn == "kristian" ) {
   throw Error("Endre dittNavn til noe unikt!")
 }
@@ -28,3 +28,4 @@ export const ssmAlbFullName = "/cdk/infra/albFullName"
 export const ssmAlbDnsName = "/cdk/infra/albDnsName"
 export const ssmAlbSecurityGroup = "/cdk/infra/albSecurityGroup"
 export const ssmAlbHttpListenerArn = "/cdk/infra/albHttpListenerArn"
+export const ssmRestApiDockerRepositoryUri = "/cdk/infra/restApiDockerRepositoryUri"

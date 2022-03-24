@@ -3,6 +3,7 @@ import * as constructs from "constructs";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ssm from "aws-cdk-lib/aws-ssm";
+import * as ecr from "aws-cdk-lib/aws-ecr";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import { TargetType } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import {
@@ -11,7 +12,7 @@ import {
   ssmAlbFullName,
   ssmAlbHttpListenerArn,
   ssmAlbSecurityGroup,
-  ssmClusterName,
+  ssmClusterName, ssmRestApiDockerRepositoryUri,
   ssmVpcId
 } from "../config";
 
@@ -107,5 +108,13 @@ export class SharedInfraStack extends cdk.Stack {
     new cdk.CfnOutput(this, "LoadBalancerDNS", {
       value: loadBalancer.loadBalancerDnsName,
     });
+
+    const repo = new ecr.Repository(this, "RestApiServiceDockerRepository", {
+      repositoryName: "capra-rest-api",
+    })
+    new ssm.StringParameter(this, "RestApiRepositoryUriParameter", {
+      stringValue: repo.repositoryUri,
+      parameterName: ssmRestApiDockerRepositoryUri
+    })
   }
 }

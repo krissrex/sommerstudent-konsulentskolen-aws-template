@@ -97,8 +97,9 @@ Kristian har tilgang til den.
 8. Pekte ts output til `out/`
 9. La inn aws konto i aws-vault, og pekte den til eu-west-1.
 10. `aws-vault exec ks2 -- npx cdk bootstrap aws://701519849458/eu-west-1`
-  1. Denne lager en CloudFormation stack: `CDKToolkit`.
-11. La inn felles infra som vpc, alb og en stack som henter de via SSM parametre
-12. `aws-vault exec ks2 -- npm run cdk deploy` med `SharedInfraStack` i app
-13. Byttet `dittNavn` fra `capra` til `kristian` og prøvde `aws-vault exec ks2 -- npm run cdk synth`
-14. 
+11. Denne lager en CloudFormation stack: `CDKToolkit`.
+12. La inn felles infra som vpc, alb og en stack som henter de via SSM parametre
+13. `aws-vault exec ks2 -- npm run cdk deploy` med `SharedInfraStack` i app
+14. Byttet `dittNavn` fra `capra` til `kristian` og prøvde `aws-vault exec ks2 -- npm run cdk synth`
+15. Lagde et ECR repo og en dockerfile med et "API". Bydge og pushet til ECR med to scripts i repoet.
+16. 
