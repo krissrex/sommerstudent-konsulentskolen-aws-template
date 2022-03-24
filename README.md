@@ -77,9 +77,13 @@ Kristian har tilgang til den.
 
 ### Lambda SQS processor
 
+Det finnes allerede en lambda i en construct i `lib/constructs/SnsLambda`.
+
 ![Lambda SQS processor](./lambda-sqs-sns.drawio.svg)
 
 ### Webapp backend
+
+Det finnes allerede et docker-image i kontoen på `capra-rest-api:latest`.
 
 ![Webapp backend](./webapp-backend.drawio.svg)
 
@@ -101,5 +105,6 @@ Kristian har tilgang til den.
 12. La inn felles infra som vpc, alb og en stack som henter de via SSM parametre
 13. `aws-vault exec ks2 -- npm run cdk deploy` med `SharedInfraStack` i app
 14. Byttet `dittNavn` fra `capra` til `kristian` og prøvde `aws-vault exec ks2 -- npm run cdk synth`
-15. Lagde et ECR repo og en dockerfile med et "API". Bydge og pushet til ECR med to scripts i repoet.
-16. 
+15. Lagde et ECR repo og en dockerfile med et "API". 
+16. Bydge og pushet til ECR med to scripts i repoet (`build-rest-api-docker.sh`, `push-rest-api-docker.sh`).
+17. 
