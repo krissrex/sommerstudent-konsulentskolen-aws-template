@@ -24,7 +24,7 @@ export class SnsLambda extends Construct {
         topicArn: props.egressTopic.topicArn
       },
       timeout: Duration.seconds(10),
-      memorySize: 256,
+      memorySize: 128,
     })
 
     this.lambda.addEventSource(new SqsEventSource(props.ingressQueue, {
