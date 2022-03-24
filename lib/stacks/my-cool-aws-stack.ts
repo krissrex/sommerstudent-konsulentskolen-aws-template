@@ -2,10 +2,14 @@ import * as cdk from "aws-cdk-lib";
 import { Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as sqs from "aws-cdk-lib/aws-sqs";
+import * as sns from "aws-cdk-lib/aws-sns";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecr from "aws-cdk-lib/aws-ecr";
+import { SnsLambda } from "../constructs/SnsLambda";
+import { dittNavn } from "../config";
+import { SqsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 
 export interface Props extends StackProps {
   /** Virtual Private Cloud. Nettverks-greie. */
@@ -47,7 +51,7 @@ export class MyCoolAwsStack extends Stack {
 
     // example resource
     const queue = new sqs.Queue(this, "ExampleQueue", {
-      visibilityTimeout: cdk.Duration.seconds(300)
+      visibilityTimeout: cdk.Duration.seconds(300),
     });
 
     // Create an ECS Fargate service
@@ -60,5 +64,23 @@ export class MyCoolAwsStack extends Stack {
     // Set SQS, SNS, S3 urls etc. as environment names on the docker container
 
     // Create a route53 A record to the ALB
+
+    const topic = new sns.Topic(this, "Topic", {
+      topicName: `lamda-egress-${dittNavn}-topic`,
+    });
+    new SnsLambda(this, "SnsLambda", {
+      egressTopic: topic,
+      ingressQueue: queue,
+    });
+
+    const lambdaResults = new sqs.Queue(this, "Results", {
+      visibilityTimeout: cdk.Duration.seconds(10),
+    });
+
+    topic.addSubscription(
+      new SqsSubscription(lambdaResults, {
+        rawMessageDelivery: true,
+      })
+    );
   }
 }
