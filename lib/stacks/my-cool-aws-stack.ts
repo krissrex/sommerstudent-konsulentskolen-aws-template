@@ -6,6 +6,7 @@ import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecr from "aws-cdk-lib/aws-ecr";
+import { Backend } from "../constructs/Backend";
 
 export interface Props extends StackProps {
   /** Virtual Private Cloud. Nettverks-greie. */
@@ -60,5 +61,13 @@ export class MyCoolAwsStack extends Stack {
     // Set SQS, SNS, S3 urls etc. as environment names on the docker container
 
     // Create a route53 A record to the ALB
+
+    new Backend(this, "Backend", {
+      vpc: props.vpc,
+      cluster: props.cluster,
+      loadBalancer: props.loadBalancer,
+      dockerRepository: props.backendDockerRepository,
+      loadBalancerSecurityGroup: props.loadBalancerSecurityGroup
+    });
   }
 }
