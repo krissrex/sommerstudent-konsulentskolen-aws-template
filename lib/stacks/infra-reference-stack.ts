@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import * as constructs from "constructs";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
+import * as ecr from "aws-cdk-lib/aws-ecr";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import {
@@ -11,6 +12,7 @@ import {
   ssmAlbHttpListenerArn,
   ssmAlbSecurityGroup,
   ssmClusterName,
+  ssmRestApiDockerRepositoryName,
   ssmVpcId,
 } from "../config";
 
@@ -27,7 +29,9 @@ export class InfraReferenceStack extends cdk.Stack {
    * or use the existing {@link httpListener} instead
    */
   public readonly loadBalancer: elbv2.IApplicationLoadBalancer;
+  public readonly loadBalancerSecurityGroup: ec2.ISecurityGroup;
   public readonly httpListener: elbv2.IApplicationListener;
+  public readonly backendDockerRepository: ecr.IRepository;
 
   constructor(scope: constructs.Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
@@ -48,7 +52,8 @@ export class InfraReferenceStack extends cdk.Stack {
       this,
       ssmAlbSecurityGroup
     );
-    const loadBalancerSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(
+
+    this.loadBalancerSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(
       this,
       "AlbSecurityGroup",
       securityGroupId,
@@ -77,6 +82,7 @@ export class InfraReferenceStack extends cdk.Stack {
         }
       );
 
+
     this.httpListener =
       elbv2.ApplicationListener.fromApplicationListenerAttributes(
         this,
@@ -86,8 +92,14 @@ export class InfraReferenceStack extends cdk.Stack {
             this,
             ssmAlbHttpListenerArn
           ),
-          securityGroup: loadBalancerSecurityGroup,
+          securityGroup: this.loadBalancerSecurityGroup,
         }
       );
+
+    this.backendDockerRepository = ecr.Repository.fromRepositoryName(
+      this,
+      "BackendDockerRepository",
+      ssm.StringParameter.valueFromLookup(this, ssmRestApiDockerRepositoryName)
+    );
   }
 }

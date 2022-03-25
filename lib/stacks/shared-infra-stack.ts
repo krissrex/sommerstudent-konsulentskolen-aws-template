@@ -12,7 +12,7 @@ import {
   ssmAlbFullName,
   ssmAlbHttpListenerArn,
   ssmAlbSecurityGroup,
-  ssmClusterName, ssmRestApiDockerRepositoryUri,
+  ssmClusterName, ssmRestApiDockerRepositoryName, ssmRestApiDockerRepositoryUri,
   ssmVpcId
 } from "../config";
 
@@ -115,6 +115,10 @@ export class SharedInfraStack extends cdk.Stack {
     new ssm.StringParameter(this, "RestApiRepositoryUriParameter", {
       stringValue: repo.repositoryUri,
       parameterName: ssmRestApiDockerRepositoryUri
+    })
+    new ssm.StringParameter(this, "RestApiRepositoryNameParameter", {
+      stringValue: repo.repositoryName,
+      parameterName: ssmRestApiDockerRepositoryName
     })
   }
 }

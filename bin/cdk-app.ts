@@ -29,6 +29,8 @@ if (dittNavn == "capra") {
     vpc: infra.vpc,
     cluster: infra.cluster,
     loadBalancer: infra.loadBalancer,
-    httpListener: infra.httpListener
+    httpListener: infra.httpListener,
+    backendDockerRepository: infra.backendDockerRepository,
+    loadBalancerSecurityGroup: infra.loadBalancerSecurityGroup,
   });
 }

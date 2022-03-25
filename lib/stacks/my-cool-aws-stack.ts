@@ -5,6 +5,7 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
+import * as ecr from "aws-cdk-lib/aws-ecr";
 
 export interface Props extends StackProps {
   /** Virtual Private Cloud. Nettverks-greie. */
@@ -15,6 +16,10 @@ export interface Props extends StackProps {
 
   /** En Load Balancer videresender nettverkstrafikk fra utenfra (din pc, clients) til en docker container i ECS. */
   loadBalancer: elbv2.IApplicationLoadBalancer;
+
+  loadBalancerSecurityGroup: ec2.ISecurityGroup;
+
+  backendDockerRepository: ecr.IRepository;
 
   /** Listener som lytter på port 80. Den er en del av {@link loadBalancer},
    * og har reglene som oversetter fra f.eks. HTTP Host-header til en TargetGroup med Docker containere.
@@ -35,14 +40,14 @@ export interface Props extends StackProps {
  * til CloudFormation med `cdk deploy`.
  */
 export class MyCoolAwsStack extends Stack {
-  constructor(scope: Construct, id: string, props?: Props) {
+  constructor(scope: Construct, id: string, props: Props) {
     super(scope, id, props);
 
     // The code that defines your stack goes here
 
     // example resource
     const queue = new sqs.Queue(this, "ExampleQueue", {
-      visibilityTimeout: cdk.Duration.seconds(300),
+      visibilityTimeout: cdk.Duration.seconds(300)
     });
 
     // Create an ECS Fargate service
