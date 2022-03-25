@@ -63,7 +63,6 @@ export class MyCoolAwsStack extends Stack {
     // Create a route53 A record to the ALB
 
     new Backend(this, "Backend", {
-      vpc: props.vpc,
       cluster: props.cluster,
       loadBalancer: props.loadBalancer,
       dockerRepository: props.backendDockerRepository,

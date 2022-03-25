@@ -8,7 +8,6 @@ import { dittNavn } from "../config";
 import { CfnOutput } from "aws-cdk-lib";
 
 export interface Props {
-  vpc: IVpc
   dockerRepository: IRepository
   cluster: ICluster
   loadBalancer: IApplicationLoadBalancer
@@ -22,9 +21,7 @@ export class Backend extends Construct {
 
 
     const service = new ecsPatterns.ApplicationLoadBalancedFargateService(this, "Service", {
-      vpc: props.vpc,
       cluster: props.cluster,
-      loadBalancer: props.loadBalancer,
       assignPublicIp: true,
       cpu: 512,
       memoryLimitMiB: 2048,
@@ -37,6 +34,8 @@ export class Backend extends Construct {
         environment: {},
       }
     })
+
+
 
     new CfnOutput(this, "BackendUrl", {
       value: service.loadBalancer.loadBalancerDnsName,

@@ -53,5 +53,6 @@
         ]
       }
     ]
-  }
+  },
+  "ssm:account=701519849458:parameterName=/cdk/infra/restApiDockerRepositoryName:region=eu-west-1": "capra-rest-api"
 }
