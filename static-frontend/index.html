@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My cool website</title>
+  <link rel="stylesheet" href="css-reset.css">
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    function fetchFromApi() {
+      const resultTextArea = document.querySelector("#api-response");
+
+      resultTextArea.value = "Loading..."
+      try {
+        fetch("https://api.capra-kurs.com")
+          .then((response) => response.json())
+          .then((data) => {
+            const body = data;
+            resultTextArea.value = JSON.stringify(body);
+            console.log("API OK", data);
+          });
+      } catch (e) {
+        console.error("Failed to fetch from API", e);
+        resultTextArea.value = "Error! " + e
+      }
+    }
+  </script>
+</head>
+<body>
+<header><span>My cool website</span></header>
+<main>
+  <h1>Welcome to my cool website!</h1>
+  <p>There is nothing to see here tho.</p>
+
+
+  <hr style="margin-top: 2em" />
+  <h2>Backend API testing</h2>
+  <p>
+    <span>Fetch a response from the backend:</span>
+    <button onclick="fetchFromApi()">Fetch</button>
+    <br />
+    <textarea name="api-response" id="api-response" cols="30" rows="1" readonly></textarea>
+  </p>
+</main>
+<footer><img src="liflig_logo_v2.png" alt="liflig logo" class="liflig-logo"><span>Made by Kristian</span></footer>
+</body>
+</html>
