@@ -1,0 +1,33 @@
+html, body {
+    font-family: Georgia, Sans-Serif;
+    height: 100%;
+}
+
+
+header {
+    background-color: tomato;
+    padding: 2em 1em;
+    margin-bottom: 0.5em;
+}
+
+main {
+    padding-left: 4em;
+    padding-right: 4em;
+
+    min-height: -webkit-calc(100% - 100px);
+    min-height: -moz-calc(100% - 100px);
+    min-height: calc(100% - 100px);
+}
+
+footer {
+    background-color: mistyrose;
+    height: 4em;
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+.liflig-logo {
+    height: 2em;
+    display: inline-block;
+    margin-right: 1em;
+}
